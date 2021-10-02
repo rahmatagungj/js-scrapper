@@ -1,15 +1,16 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 
+const BASE_URL = "https://www.rahmatagungjulians.tech";
+
 async function getData(url) {
   const { data } = await axios.get(url);
-  return data;
+  const datas = cheerio.load(await data);
+  return datas;
 }
 
-console.log("Starting...");
-async function run() {
-  const response = await getData("https://www.rahmatagungjulians.tech");
-  const $ = cheerio.load(await response);
+async function getInformation() {
+  const $ = await getData(BASE_URL);
 
   // data
   const data = {
@@ -165,4 +166,5 @@ async function run() {
   console.log(data);
 }
 
-run();
+console.log("Starting...");
+getInformation();
